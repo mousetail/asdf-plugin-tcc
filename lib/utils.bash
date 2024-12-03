@@ -31,7 +31,7 @@ download_release() {
 	filename="$2"
 
 	# TODO: Adapt the release URL convention for plugin-tcc
-	url="https://mirror.accum.se/mirror/gnu.org/savannah/tinycc/gcc-{version}.tar.bz2"
+	url="https://mirror.accum.se/mirror/gnu.org/savannah/tinycc/tcc-${version}.tar.bz2"
 
 	echo "* Downloading $TOOL_NAME release $version..."
 	curl "${curl_opts[@]}" -o "$filename" -C - "$url" || fail "Could not download $url"

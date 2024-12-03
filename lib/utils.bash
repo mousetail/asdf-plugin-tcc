@@ -51,6 +51,7 @@ install_version() {
 		cp -r "$ASDF_DOWNLOAD_PATH"/* "$install_path"
 
 		cd "$install_path"
+		patch -p0 < "$plugin_dir/lib/fixes.patch"
 		bash ./configure
 		make
 

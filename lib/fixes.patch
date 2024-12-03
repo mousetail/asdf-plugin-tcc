@@ -1,25 +1,25 @@
 --- a/Makefile
 +++ b/Makefile
 @@ -88,7 +88,7 @@ PROGS = tcc$(EXESUF)
-TCCLIBS = $(LIBTCC1) $(LIBTCC) $(LIBTCCDEF)
-TCCDOCS = tcc.1 tcc-doc.html tcc-doc.info
-
+ TCCLIBS = $(LIBTCC1) $(LIBTCC) $(LIBTCCDEF)
+ TCCDOCS = tcc.1 tcc-doc.html tcc-doc.info
+ 
 -all: $(PROGS) $(TCCLIBS) $(TCCDOCS)
 +all: $(PROGS) $(TCCLIBS)
-
-# cross compiler targets to build
-TCC_X = i386 x86_64 i386-win32 x86_64-win32 x86_64-osx arm arm64 arm-wince c67
+ 
+ # cross compiler targets to build
+ TCC_X = i386 x86_64 i386-win32 x86_64-win32 x86_64-osx arm arm64 arm-wince c67
 diff --git a/lib/bcheck.c b/lib/bcheck.c
 index 90f0ad2..31332fd 100644
 --- a/lib/bcheck.c
 +++ b/lib/bcheck.c
 @@ -47,7 +47,7 @@
-/* #define BOUND_STATIC */
-
-/* use malloc hooks. Currently the code cannot be reliable if no hooks */
+ /* #define BOUND_STATIC */
+ 
+ /* use malloc hooks. Currently the code cannot be reliable if no hooks */
 -#define CONFIG_TCC_MALLOC_HOOKS
 +// #define CONFIG_TCC_MALLOC_HOOKS
-#define HAVE_MEMALIGN
-
-#if defined(__FreeBSD__) \
---
+ #define HAVE_MEMALIGN
+ 
+ #if defined(__FreeBSD__) \
+-- 

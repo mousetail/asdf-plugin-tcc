@@ -19,9 +19,9 @@ sort_versions() {
 }
 
 list_all_versions() {
-	curl -s https://mirror.accum.se/mirror/gnu.org/savannah/tinycc/ | \
-		grep -oE "\"tcc-([[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+)\.tar.bz2\"" | \
-		grep -oE "[[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+" | \
+	curl -s https://mirror.accum.se/mirror/gnu.org/savannah/tinycc/ |
+		grep -oE "\"tcc-([[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+)\.tar.bz2\"" |
+		grep -oE "[[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+" |
 		uniq
 }
 
@@ -47,7 +47,7 @@ install_version() {
 	fi
 	(
 		local work_dir
-		work_dir="$(mktemp -d -p tcc)"
+		work_dir="$(mktemp -d)"
 
 		mkdir -p "$install_path"
 		mkdir -p "$install_path/bin"
@@ -57,8 +57,8 @@ install_version() {
 		cp -r "$ASDF_DOWNLOAD_PATH"/* "$work_dir"
 
 		cd "$work_dir"
-		patch -p1 < "${work_dir}/lib/fixes.patch" && \
-			bash ./configure --strip-binaries --bin "${install_path}/bin" --prefix "${install_path}" --exec-prefix "${install_path}" && \
+		patch -p1 <"${plugin_dir}/lib/fixes.patch" &&
+			bash ./configure --strip-binaries --bin "${install_path}/bin" --prefix "${install_path}" --exec-prefix "${install_path}" &&
 			make &&
 			make install
 

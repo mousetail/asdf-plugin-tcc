@@ -58,7 +58,7 @@ install_version() {
 
 		cd "$work_dir"
 		patch -p1 <"${plugin_dir}/lib/fixes.patch" &&
-			bash ./configure --strip-binaries --bin "${install_path}/bin" --prefix "${install_path}" --exec-prefix "${install_path}" &&
+			bash ./configure --strip-binaries --bin="${install_path}/bin" --prefix="${install_path}" --exec-prefix="${install_path}" &&
 			make &&
 			make install
 

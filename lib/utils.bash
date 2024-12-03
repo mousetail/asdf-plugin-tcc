@@ -45,20 +45,26 @@ install_version() {
 	if [ "$install_type" != "version" ]; then
 		fail "asdf-$TOOL_NAME supports release installs only"
 	fi
-
 	(
+		local work_dir
+		work_dir="$(mktemp -d -p tcc)"
+
 		mkdir -p "$install_path"
-		cp -r "$ASDF_DOWNLOAD_PATH"/* "$install_path"
+		mkdir -p "$install_path/bin"
+		mkdir -p "$install_path/lib"
+		mkdir -p "$install_path/include"
 
-		cd "$install_path"
-		patch -p1 < "${plugin_dir}/lib/fixes.patch" && \
-			bash ./configure && \
-			make
+		cp -r "$ASDF_DOWNLOAD_PATH"/* "$work_dir"
 
-		# TODO: Assert tcc executable exists.
+		cd "$work_dir"
+		patch -p1 < "${work_dir}/lib/fixes.patch" && \
+			bash ./configure --strip-binaries --bin "${install_path}/bin" --prefix "${install_path}" --exec-prefix "${install_path}" && \
+			make &&
+			make install
+
 		local tool_cmd
 		tool_cmd="$(echo "$TOOL_TEST" | cut -d' ' -f1)"
-		test -x "$install_path/$tool_cmd" || fail "Expected $install_path/$tool_cmd to be executable."
+		test -x "$install_path/bin/$tool_cmd" || fail "Expected $install_path/bin/$tool_cmd to be executable."
 
 		echo "$TOOL_NAME $version installation was successful!"
 	) || (

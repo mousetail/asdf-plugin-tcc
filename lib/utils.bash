@@ -51,7 +51,7 @@ install_version() {
 		cp -r "$ASDF_DOWNLOAD_PATH"/* "$install_path"
 
 		cd "$install_path"
-		./configure --strip-binaries --prefix-dir "$install_path" --cpu=x86_64
+		./configure
 		make
 
 		# TODO: Assert tcc executable exists.

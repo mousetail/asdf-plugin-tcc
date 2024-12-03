@@ -51,9 +51,9 @@ install_version() {
 		cp -r "$ASDF_DOWNLOAD_PATH"/* "$install_path"
 
 		cd "$install_path"
-		patch -p0 < "$plugin_dir/lib/fixes.patch"
-		bash ./configure
-		make
+		patch -p1 < "${plugin_dir}/lib/fixes.patch" && \
+			bash ./configure && \
+			make
 
 		# TODO: Assert tcc executable exists.
 		local tool_cmd

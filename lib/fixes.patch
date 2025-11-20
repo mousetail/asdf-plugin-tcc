@@ -1,5 +1,5 @@
---- tcc.c
-+++ tcc.c
+--- a/tcc.c
++++ b/tcc.c
 @@ -252,6 +252,9 @@
      int argc; char **argv;
      FILE *ppfp = stdout;
